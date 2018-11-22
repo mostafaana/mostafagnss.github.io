@@ -1,0 +1,517 @@
+<html>
+<head>
+	
+	<title>Projet web ma1pping</title>
+
+
+	<link rel="stylesheet" href="leaflet.css" />
+	<script src="leaflet.js"></script>
+	
+<link rel = "stylesheet" type="text/css" href = "style.css">
+
+<link rel="stylesheet" href="gh-fork-ribbon.css" />
+<link rel="stylesheet" href="gh-fork-ribbon.ie.css" />
+
+<link rel="stylesheet" href="leaflet.fusesearch.css" />
+<script src="leaflet.fusesearch.js"></script>
+
+<link rel="stylesheet" href="leaflet.draw.css" />
+<script src="leaflet.draw.js"></script>
+<script src="leaflet.geometryutil.js"></script>
+<script src="leaflet.snap.js"></script>
+
+
+<script src="Leaflet.Editable.js"></script>
+<script src="leaflet-providers.js"></script>
+<script src="COUNTRY.js"></script>
+
+<style type="text/css">
+
+#mymap{ height : 400px; }
+			.legend { background : white; line-height : 1.5em}
+			.legend i { width : 5em; float : left }	
+
+</style>
+</head>
+<body>
+
+
+<div id="WebSite_Titre">
+		
+		<b>D&eacuteveloppement d'une Application Web Mapping qui cartographie les informations sur les tissus socio-&eacuteconomiques en Afrique.</b>
+                                                             
+	</div>
+	<div id='cssmenu'>
+<ul>
+   <li><a href='ACCEUIL.html'><span>Acceuil</span></a></li>
+   <li class='active has-sub'><a href='#'><span>Cartes</span></a>
+      <ul>
+         <li class='has-sub'><a href='#'><span>Maroc</span></a>
+            
+            <ul>
+
+
+<li class='active has-sub'><a href='#'><span>taux activite</span></a>
+
+<ul> 
+<li><a href='mta3.html'><span>2003 </span></a></li>
+<li><a href='mta5.html'><span>2005 </span></a></li>
+</ul>
+ 
+
+<li class='active has-sub'><a href='#'><span>taux chomage</span></a>
+
+<ul> 
+<li><a href='mtc3.html'><span>2003 </span></a></li>
+<li><a href='mtc5.html'><span>2005 </span></a></li>
+</ul>
+
+
+       </ul>
+         
+         </li>
+         <li class='has-sub'><a href='#'><span>Afrique</span></a>
+            
+            <ul>
+
+
+<li class='active has-sub'><a href='#'><span>taux activite</span></a>
+
+<ul> 
+<li><a href='ata3.html'><span>2003 </span></a></li>
+<li><a href='ata5.html'><span>2005 </span></a></li>
+</ul>
+ 
+
+<li class='active has-sub'><a href='#'><span>taux chomage</span></a>
+
+<ul> 
+<li><a href='atc3.html'><span>2003 </span></a></li>
+<li><a href='atc5.html'><span>2005 </span></a></li>
+</ul>
+
+
+       </ul>
+         
+         </li>
+
+      </ul>
+   </li>
+   <li><a href='Contact.html'><span>Contact</span></a></li>
+    <li><a href='REFERENCES.html'><span>REFERENCES</span></a></li>
+   <li class='last'><a href='#'onClick="window.close();"><span>Quitter</span></a></li>
+</ul>
+	</div>
+
+
+<div id="WebSite_Text">
+		 <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspIndice de Qualit&eacute de Sol(IQC):</br>
+		<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspLa  Le sol est le support de la vie terrestre. Il r&eacutesulte de la transformation de la couche superficielle de la roche-m&egravere, la croûte terrestre, d&eacutegrad&eacutee et enrichie en apports organiques par les processus vivants. Hors des milieux marins et aquatiques d'eau douce, il est ainsi à la fois le support et le produit du vivant. Le sol est une interface entre biosph&egravere et lithosph&egravere. La partie du sol sp&eacutecialement riche en mati&egravere organique se nomme l'humus.</br>
+
+         <br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOn diff&eacuterencie le sol de la cro&ucircte terrestre par la pr&eacutesence significative de vie. Le sol est aussi un des puits de carbone plan&eacutetaires, mais semble perdre une partie de son carbone, de mani &egravere acc&eacutel&eacuter&eacutee depuis au moins 20 ans. Il peut contenir et conserver des fossiles , des vestiges historiques et les traces d'anciennes activit&eacutes humaines (anthropisation, voir aussi anthrosol, archéologie) ou d'&eacutev  &egravenements climatiques. Ces &eacutel&egravements influent &agrave leur tour sur la composition floristique.  <br>
+     
+                                                             
+	</div>
+
+
+
+    <div id="AllignerImage">
+
+    	<div id="mapid" style="width: 600px; height: 400px;"></div>
+<script src="COUNTRY.js" type="text/javascript"></script>
+<script>
+	var mymap = L.map('mapid').setView([33.976974, -6.866454], 7);
+
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		id: 'mapbox.streets'
+	}).addTo(mymap);
+
+
+
+
+var searchCtrl = L.control.fuseSearch()
+searchCtrl.addTo(mymap);
+
+
+
+
+
+
+
+ 
+
+     var drawnItems = new L.FeatureGroup();
+     mymap.addLayer(drawnItems);
+     var drawControl = new L.Control.Draw({
+         edit: {
+             featureGroup: drawnItems
+         }
+     });
+     mymap.addControl(drawControl);
+
+
+
+
+
+
+function getColor(p) {
+		return p>25 ? '#800026' :
+				p>10  ? '#BD0026' :
+				p>2  ? '#E31A1C' :
+				             '#FC4E2A' ;
+	}   
+  
+	function Monstyle(feature) {
+		return {
+			weight: 2,
+			opacity: 1,
+			color: 'white',
+			dashArray: '3',
+			fillOpacity: 0.7,
+			fillColor: getColor(feature.properties.tauxcho3)
+		};
+	}
+
+	var geojson = L.geoJson(COUNTRY, {
+		style: Monstyle,
+	}).addTo(mymap);
+
+
+
+
+
+
+
+
+var imageUrl = 'iav.jpg',
+    imageBounds = [[33.978310, -6.857609], [34.978310, -6.257609]];
+L.imageOverlay(imageUrl, imageBounds).addTo(mymap);
+
+
+
+
+
+
+
+
+
+
+
+
+var polygon = L.polygon([
+    [35.225323, -5.15778],
+    [35.625323, -5.35778],
+    [35.825323, -5.65778],
+    [35.425323, -5.63778]
+]).addTo(mymap);
+
+
+
+
+
+var latlngs = [
+    [33.965542, -6.842599],
+        [33.585139, -7.593862]
+];
+var polyline = L.polyline(latlngs, {color: 'green'}).addTo(mymap);
+// zoom the map to the polyline
+mymap.fitBounds(polyline.getBounds());
+
+
+
+
+
+
+var point1= [35.225323, -5.35778];
+			var myMarker = L.marker(point1);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Tanger-Tetouan</b><div><img style="width:100%" src="Tanger.jpg" alt="image"/></div>',
+				{minWidth : 256}
+			);
+
+
+
+var point2 = [33.978310, -6.857609];
+			var myMarker = L.marker(point2);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Rabat-Sale-Zemmour-Zaer</b><div><img style="width:100%" src="rabat.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+
+var point3 = [34.418308, -4.156071];
+			var myMarker = L.marker(point3);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Taza-Alhoceima-Taounate</b><div><img style="width:100%" src="taza.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+var point4 = [33.675262, -2.483826];
+			var myMarker = L.marker(point4);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Oriental</b><div><img style="width:100%" src="oriental.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+var point5 = [34.012845, -4.991787];
+			var myMarker = L.marker(point5);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Fes-Boulemane</b><div><img style="width:100%" src="fes.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+var point6 = [34.607343, -6.119774];
+			var myMarker = L.marker(point6);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Gharb-Chrarda-Beni Hssen</b><div><img style="width:100%" src="gharb.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+var point7 = [33.082918, -5.165403];
+			var myMarker = L.marker(point7);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Meknes-Tafilalet</b><div><img style="width:100%" src="meknes.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+var point8 = [33.566547, -7.647763];
+			var myMarker = L.marker(point8);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Grand Casablanca</b><div><img style="width:100%" src="casa.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+
+var point9 = [32.786629, -7.267782];
+			var myMarker = L.marker(point9);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Chaouia-Ouardigha</b><div><img style="width:100%" src="chaouia.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+var point10 = [31.904603, -6.739132];
+			var myMarker = L.marker(point10);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Tadla-Azilal</b><div><img style="width:100%" src="tadla.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+var point11 = [32.488257, -8.947873];
+			var myMarker = L.marker(point11);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Doukkala-Abda</b><div><img style="width:100%" src="jadida.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+var point12 = [31.637525, -8.018842];
+			var myMarker = L.marker(point12);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Marrakech-Tensift-el Haouz</b><div><img style="width:100%" src="kech.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+var point13 = [30.249396, -8.194807];
+			var myMarker = L.marker(point13);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Souss-Massa-Draa</b><div><img style="width:100%" src="souss.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+
+var point14 = [27.174145, -10.094099];
+			var myMarker = L.marker(point14);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion Guelmim-Es-Semara</b><div><img style="width:100%" src="guelmim.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+
+
+
+var point15 = [26.128594, -13.170758];
+			var myMarker = L.marker(point15);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion  Laayoune-Boujdour-Sakia El Hamra</b><div><img style="width:100%" src="laayoune.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+
+var point16 = [23.186010, -14.978439];
+			var myMarker = L.marker(point16);
+			myMarker.addTo(mymap);
+			myMarker.bindPopup(
+				'<b>R&eacute;gion  Oued Ed-Dahab-Lagouira</b><div><img style="width:100%" src="oued.jpg" alt="image"/></div>',
+				{minwidth : 256}
+			);
+
+
+
+
+
+function highlightFeature(e) {
+	    var layer = e.target;
+
+	    layer.setStyle({
+	        weight: 5,
+	        color: '#666',
+	        dashArray: '',
+	        fillOpacity: 0.7
+	    });
+
+	    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+	        layer.bringToFront();
+	    }
+	        info.update(layer.feature.properties);
+
+	}
+
+	function resetHighlight(e) {
+    	geojson.resetStyle(e.target);
+    	    info.update();
+
+	}
+	function zoomToFeature(e) {
+   map.fitBounds(e.target.getBounds());
+}
+	function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+var info = L.control();
+
+info.onAdd = function (mymap) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
+
+// method that we will use to update the control based on feature properties passed
+info.update = function (props) {
+    this._div.innerHTML = '<h4> TAUX DE chomage de chaque Pays</h4>' +  (props ?
+        'PAYS : <b>' + props.COUNTRY + '</b> <br />TAUX DE chomage (%) : ' + props.tauxcho3  + ' .....</sup>'
+        : 'Merci de mettre le cursuer sur le Pays');
+};
+
+
+
+info.addTo(mymap);
+
+	var geojson = L.geoJson(COUNTRY, {
+		style: Monstyle,
+	    onEachFeature: onEachFeature,
+}).addTo(mymap);
+
+
+
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (mymap) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [2, 10, 25],
+        labels = [	];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(mymap);
+			
+var defaultLayer = L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(mymap);
+
+var baseLayers = {
+			'OpenStreetMap Default': defaultLayer,
+			'OpenStreetMap German Style': L.tileLayer.provider('OpenStreetMap.DE'),
+			'OpenStreetMap Black and White': L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
+			'OpenStreetMap H.O.T.': L.tileLayer.provider('OpenStreetMap.HOT'),
+			'Thunderforest OpenCycleMap': L.tileLayer.provider('Thunderforest.OpenCycleMap'),
+			'Thunderforest Transport': L.tileLayer.provider('Thunderforest.Transport'),
+			'Thunderforest Landscape': L.tileLayer.provider('Thunderforest.Landscape'),
+			'Hydda Full': L.tileLayer.provider('Hydda.Full'),
+			'Stamen Toner': L.tileLayer.provider('Stamen.Toner'),
+			'Stamen Terrain': L.tileLayer.provider('Stamen.Terrain'),
+			'Stamen Watercolor': L.tileLayer.provider('Stamen.Watercolor'),
+			'Esri WorldStreetMap': L.tileLayer.provider('Esri.WorldStreetMap'),
+			'Esri DeLorme': L.tileLayer.provider('Esri.DeLorme'),
+			'Esri WorldTopoMap': L.tileLayer.provider('Esri.WorldTopoMap'),
+			'Esri WorldImagery': L.tileLayer.provider('Esri.WorldImagery'),
+			'Esri WorldTerrain': L.tileLayer.provider('Esri.WorldTerrain'),
+			'Esri WorldShadedRelief': L.tileLayer.provider('Esri.WorldShadedRelief'),
+			'Esri WorldPhysical': L.tileLayer.provider('Esri.WorldPhysical'),
+			'Esri OceanBasemap': L.tileLayer.provider('Esri.OceanBasemap'),
+			'Esri NatGeoWorldMap': L.tileLayer.provider('Esri.NatGeoWorldMap'),
+			'Esri WorldGrayCanvas': L.tileLayer.provider('Esri.WorldGrayCanvas'),
+			'Geoportail France Maps': L.tileLayer.provider('GeoportailFrance'),
+			'Geoportail France Orthos': L.tileLayer.provider('GeoportailFrance.orthos'),
+			'Geoportail France classic maps': L.tileLayer.provider('GeoportailFrance.ignMaps')
+		};
+
+		var overlayLayers = {
+		};
+
+		L.control.layers(baseLayers, overlayLayers).addTo(mymap);
+
+		// resize layers control to fit into view.
+		function resizeLayerControl () {
+			var layerControlHeight = document.body.clientHeight - (10 + 50);
+			var layerControl = document.getElementsByClassName('leaflet-control-layers-expanded')[0];
+
+			layerControl.style.overflowY = 'auto';
+			layerControl.style.maxHeight = layerControlHeight + 'px';
+		}
+		mymap.on('resize', resizeLayerControl);
+
+		resizeLayerControl();
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+    </div>
+    
+
+
+
+
+
+</body>
+</html>
